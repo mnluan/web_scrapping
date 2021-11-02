@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import json
+import os
 
 print("Opening web browser ")
 
@@ -54,4 +55,13 @@ fp.close()
 
 print("top50FIFA.json and top10FIFA.json were created \n")
 
+print("Closing web browser ")
 driver.quit()
+
+os.system('clear')  # Clean console in Linux
+os.system('CLS')  # Clean console in Windows
+
+print("\n Top 10 -- Ranking FIFA")
+print(df10)
+print("\n Top 50 -- Ranking FIFA")
+print(df50)
