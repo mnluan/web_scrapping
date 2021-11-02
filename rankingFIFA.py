@@ -11,38 +11,47 @@ print("Opening web browser ")
 url = "https://www.fifa.com/fifa-world-ranking/men"
 option = Options()
 option.headless = True
-driver = webdriver.Firefox(options = option)
+driver = webdriver.Firefox(options=option)
 
 print("Connecting... ")
 
 driver.get(url)
 time.sleep(10)
 
-element = driver.find_element_by_xpath("//div[@class='fc-ranking-overview_cardsContainer__1w_fo']//table")
+element = driver.find_element_by_xpath(
+    "//div[@class='fc-ranking-overview_cardsContainer__1w_fo']//table")
 html_content = element.get_attribute('outerHTML')
 
 print("Done! ")
 
-# Parse HTML content with BeautifulSoup 
+# Parse HTML content with BeautifulSoup
 soup = BeautifulSoup(html_content, 'html.parser')
-table = soup.find(name = 'table')
+table = soup.find(name='table')
 
 
-# Structuring content in a Dataframe with Pandas 
-df_full = pd.read_html(str(table))[0].head(10)
-df = df_full[['RK', 'Team', 'Total PointsPTS', 'Previous Points', '+/-']]
-print(df)
+# Structuring content in a Dataframe with Pandas
+df_full = pd.read_html(str(table))[0].head(50)
+df_part = pd.read_html(str(table))[0].head(10)
+df50 = df_full[['RK', 'Team', 'Total PointsPTS', 'Previous Points', '+/-']]
+df10 = df_part[['RK', 'Team', 'Total PointsPTS', 'Previous Points', '+/-']]
 
-# Create a dictionary with the collected data 
+# Create a dictionary with the collected data
 top10FIFA = {}
-top10FIFA['ranking'] = df.to_dict('records')
+top50FIFA = {}
+top10FIFA['ranking'] = df10.to_dict('records')
+top50FIFA['ranking'] = df50.to_dict('records')
 
-# Convert and save file in JSON format 
-json = json.dumps(top10FIFA)
-fp = open('ranking.json', 'w')
-fp.write(json)
+# Convert and save file in JSON format
+top = json.dumps(top50FIFA)
+fp = open('top50FIFA.json', 'w')
+fp.write(top)
+
+top = json.dumps(top10FIFA)
+fp = open('top10FIFA.json', 'w')
+fp.write(top)
+
 fp.close()
 
-print("ranking.json was created \n")
+print("top50FIFA.json and top10FIFA.json were created \n")
 
 driver.quit()
