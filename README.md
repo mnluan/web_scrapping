@@ -5,7 +5,7 @@ This app use data of the FIFA's website to extract information from teams and ge
 
 * Python 3.x
 * Geckodriver
-* Firefox web browser (you can use another browser)
+* Firefox web browser (you can use your favorite web browser)
 
 ### Install the following Python libraries:
 
