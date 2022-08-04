@@ -1,4 +1,4 @@
-# Web Scraping JavaScript Generated Pages with Python and Selenium
+# Web Scraping JSON Generated Pages with Python and Selenium
 This app use data of the FIFA's website to extract information from teams and generate json files with top 10 and top 50 team rankings
 
 ## Prerequisites
